@@ -13,7 +13,13 @@ connectDB();
 const app = express();
 
 app.use(express.json()); // to accept json data
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://chat-app-1-7p6b.vercel.app/", // Frontend URL
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true, // if needed
+  })
+);
 app.get("/", (req, res) => {
   res.send("API Running!");
 });
@@ -55,7 +61,7 @@ const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
     origin: "https://chat-app-1-7p6b.vercel.app/",
-    // credentials: true,
+    methods: ["GET", "POST"],
   },
 });
 
