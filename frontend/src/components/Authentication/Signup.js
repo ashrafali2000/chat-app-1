@@ -51,7 +51,7 @@ const Signup = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/user",
+        "https://chat-app-1-woad.vercel.app/api/user",
         {
           name,
           email,
@@ -101,8 +101,8 @@ const Signup = () => {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      data.append("cloud_name", "de5xofr8r");
+      fetch("https://api.cloudinary.com/v1_1/de5xofr8r/image/upload", {
         method: "post",
         body: data,
       })
