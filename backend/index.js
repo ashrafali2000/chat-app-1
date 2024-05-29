@@ -27,7 +27,7 @@ app.options(
   cors({
     origin: "https://chat-app-1-7p6b.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    // credentials: true,
   })
 );
 
