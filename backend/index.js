@@ -15,11 +15,22 @@ const app = express();
 app.use(express.json()); // to accept json data
 app.use(
   cors({
-    origin: "https://chat-app-1-7p6b.vercel.app/", // Frontend URL
+    origin: "https://chat-app-1-7p6b.vercel.app", // Frontend URL
     methods: "GET,POST,PUT,DELETE",
     // credentials: true, // if needed
   })
 );
+
+// Handle preflight requests for all routes
+app.options(
+  "*",
+  cors({
+    origin: "https://chat-app-1-7p6b.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.get("/", (req, res) => {
   res.send("API Running!");
 });
@@ -60,7 +71,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://chat-app-1-7p6b.vercel.app/",
+    origin: "https://chat-app-1-7p6b.vercel.app",
     methods: ["GET", "POST"],
   },
 });
