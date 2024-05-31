@@ -46,7 +46,9 @@ const MyChats = ({ fetchAgain }) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-    // Set up socket.io listeners
+  }, [fetchAgain]);
+  // Set up socket.io listeners
+  useEffect(() => {
     socket.on("message", (message) => {
       setChats((prevMessages) => [...prevMessages, message]);
     });
@@ -55,7 +57,7 @@ const MyChats = ({ fetchAgain }) => {
     return () => {
       socket.off("message");
     };
-  }, [fetchAgain]);
+  }, []);
 
   return (
     <Box
