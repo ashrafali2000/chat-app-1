@@ -8,6 +8,7 @@ import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
+import socket from "../socket";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
@@ -45,7 +46,15 @@ const MyChats = ({ fetchAgain }) => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-    // eslint-disable-next-line
+    // Set up socket.io listeners
+    socket.on("message", (message) => {
+      setChats((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      socket.off("message");
+    };
   }, [fetchAgain]);
 
   return (
