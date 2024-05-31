@@ -50,7 +50,7 @@ const MyChats = ({ fetchAgain }) => {
 
   useEffect(() => {
     var socket = io(ENDPOINT);
-    socket.on("message", (message) => {
+    socket.on("message recieved", (message) => {
       setChats((prevMessages) => [...prevMessages, message]);
     });
   }, []);
