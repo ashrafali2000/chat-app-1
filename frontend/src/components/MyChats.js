@@ -8,8 +8,8 @@ import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
-import socket from "../socket";
-
+// import socket from "../socket";
+const ENDPOINT = "https://chat-app-1-woad.vercel.app";
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
@@ -47,16 +47,12 @@ const MyChats = ({ fetchAgain }) => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
   }, [fetchAgain]);
-  // Set up socket.io listeners
+
   useEffect(() => {
+    var socket = io(ENDPOINT);
     socket.on("message", (message) => {
       setChats((prevMessages) => [...prevMessages, message]);
     });
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      socket.off("message");
-    };
   }, []);
 
   return (
