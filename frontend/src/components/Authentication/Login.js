@@ -34,16 +34,9 @@ const Login = () => {
     }
 
     try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
       const { data } = await axios.post(
         "https://chat-app-1-woad.vercel.app/api/user/login",
-        { email, password },
-        config
+        { email, password }
       );
 
       toast({
